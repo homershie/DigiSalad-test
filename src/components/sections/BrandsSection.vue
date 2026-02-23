@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <section class="bg-white py-24">
+  <section id="careers" class="bg-white py-24">
     <!-- TODO: "OUR BRAND EXPERIENCE" 標題 + logo 格線 -->
   </section>
 </template>

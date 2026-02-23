@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <section class="bg-brand-teal py-24">
+  <section id="services" class="bg-brand-teal py-24">
     <!-- TODO: "OUR INGREDIENTS" 標題 + 服務 icon 圓形卡片 -->
   </section>
 </template>

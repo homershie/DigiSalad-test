@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <section class="bg-brand-dark py-24">
+  <section id="contact" class="bg-brand-dark py-24">
     <!-- TODO: App mockup 圖片 + 標題 + CTA -->
   </section>
 </template>

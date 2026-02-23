@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <section class="bg-white py-24">
+  <section id="about" class="bg-white py-24">
     <!-- TODO: 標題 "ABOUT DIGISALAD" + 插圖 + 說明文字 -->
   </section>
 </template>
