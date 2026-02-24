@@ -4,11 +4,14 @@
   /* 品牌色 */
   --color-brand-teal: #00c2b8;
   --color-brand-dark: #1a1a2e;
+  --color-brand-white: rgba(242, 242, 242, 1);
   --background-image-gradient-brand-teal: linear-gradient(
     to right,
     rgba(78, 229, 234, 1),
     rgba(38, 208, 168, 1)
   );
+  --color-enhance-teal: rgba(38, 198, 208, 1);
+  --color-enhance-red: rgba(238, 108, 138, 1);
 
   /* 字型 */
   --font-sans: 'proxima-nova', ui-sans-serif, system-ui, sans-serif;
@@ -21,4 +24,49 @@ html {
 
 body {
   font-family: var(--font-sans);
+  background-color: var(--color-brand-white);
+}
+
+.container {
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+.enhance-text-teal {
+  position: relative;
+  display: inline-block;
+}
+
+.enhance-text-teal::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  bottom: 18px;
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-enhance-teal);
+  z-index: -1;
+}
+
+.enhance-text-teal::after {
+  content: '';
+  position: absolute;
+  right: -0.3em;
+  bottom: 0.5em;
+  width: 0.263em;
+  height: 0.263em;
+  border-radius: 999px;
+  background-color: var(--color-enhance-red);
+}
+
+@media (max-width: 768px) {
+  .enhance-text-teal::before {
+    left: -4px;
+    bottom: 14px;
+    height: 4px;
+  }
+  .enhance-text-teal::after {
+    right: -0.2em;
+    bottom: 0.6em;
+  }
 }

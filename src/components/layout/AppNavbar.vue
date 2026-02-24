@@ -8,23 +8,23 @@ const { isScrolled } = useScrollNav()
 
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    class="fixed left-0 right-0 top-0 z-50 transition-all duration-300"
     :class="isScrolled ? 'bg-white shadow-md' : 'bg-transparent'"
   >
-    <nav class="flex items-center justify-between px-6 md:px-8 py-4">
+    <nav class="flex items-center justify-between px-6 min-h-[100px] md:px-[60px] py-4">
       <a
         href="/"
-        class="block transition-all duration-300"
-        :class="isScrolled ? 'brightness-0' : ''"
+        class="block transition-all duration-300 hover:brightness-110 mt-[9px] md:ms-5"
+        :class="isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'"
         aria-label="DigiSalad Home"
       >
-        <img src="/Logo.svg" alt="DigiSalad" class="h-8 md:h-9 w-auto" />
+        <img src="/Logo-C.svg" alt="DigiSalad" class="w-[120px] h-auto" />
       </a>
 
       <div class="flex items-center gap-3 md:gap-6">
         <a
           href="#contact"
-          class="hidden sm:inline-flex items-center px-4 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-brand-teal hover:opacity-90 transition-opacity"
+          class="hidden md:inline-flex items-center px-4 pt-3 pb-2 rounded-full text-sm font-bold text-white bg-gradient-brand-teal hover:opacity-90 transition-opacity"
         >
           START YOUR PROJECT
         </a>

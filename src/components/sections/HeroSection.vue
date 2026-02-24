@@ -7,7 +7,7 @@ const playButtonRef = ref<HTMLElement | null>(null)
 const scrollHintRef = ref<HTMLElement | null>(null)
 
 /** 替換為實際的 YouTube 影片 ID，例如城市夜景 timelapse */
-const youtubeVideoId = 'IeIRJ9jZ5Ro'
+const youtubeVideoId = '8_4JRK4QkqU'
 const youtubeEmbedUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1&loop=1&playlist=${youtubeVideoId}&controls=0&showinfo=0&rel=0&modestbranding=1`
 
 let ctx: gsap.Context
@@ -49,9 +49,9 @@ onUnmounted(() => ctx?.revert())
 </script>
 
 <template>
-  <section class="relative min-h-screen overflow-hidden bg-brand-dark">
+  <section class="relative min-h-screen overflow-hidden">
     <!-- YouTube 背景影片 -->
-    <div class="absolute inset-0">
+    <div class="absolute inset-0 overflow-hidden rounded-b-[60px]" aria-hidden="true">
       <iframe
         :src="youtubeEmbedUrl"
         title="Hero background video"
@@ -77,65 +77,58 @@ onUnmounted(() => ctx?.revert())
 
     <!-- 內容區 -->
     <div
-      class="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-24 pb-20"
+      class="relative z-10 flex flex-col justify-center min-h-screen items-center lg:items-start lg:pl-[226px]"
     >
-      <h1 ref="heroTitleRef" class="text-center text-white">
+      <!-- 左側垂直標籤：DIGITAL AGENCY -->
+      <div
+        class="hidden md:flex flex-col items-center gap-8 absolute left-[4%] top-[400px] -translate-y-1/2 text-white"
+        aria-hidden="true"
+      >
+        <span
+          class="text-base font-bold tracking-[0.3em] uppercase [writing-mode:vertical-rl] rotate-180"
+        >
+          Digital Agency
+        </span>
+        <div class="h-[113px] w-0.5 bg-white" />
+      </div>
+
+      <h1 ref="heroTitleRef" class="text-white text-center relative -translate-y-32 md:text-left">
         <img
           src="/Logo.svg"
           alt="DigiSalad"
-          class="h-16 md:h-24 lg:h-28 w-auto mx-auto mb-6"
-        >
+          class="mx-auto md:mx-0 h-[88px] w-auto mb-[17px] md:mb-[34px]"
+        />
         <span
-          class="block text-lg md:text-xl lg:text-2xl font-semibold tracking-[0.4em] text-white/90 uppercase"
+          class="block text-2xl/[50px] md:text-[38px]/[70px] font-bold tracking-[0.3em] text-white uppercase"
         >
-          WE CREATE AMAZING DIGITAL EXPERIENCES
+          WE CREATE
+        </span>
+        <span
+          class="block text-2xl/[50px] md:text-[38px]/[70px] font-bold tracking-[0.3em] text-white uppercase"
+        >
+          AMAZING
+        </span>
+        <span
+          class="enhance-text-teal block text-2xl/[50px] md:text-[38px]/[70px] font-bold tracking-[0.3em] text-white uppercase"
+        >
+          DIGITAL EXPERIENCES
         </span>
       </h1>
 
-      <!-- 播放按鈕 (可連結至完整影片) -->
-      <a
-        ref="playButtonRef"
-        :href="`https://www.youtube.com/watch?v=${youtubeVideoId}`"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mt-12 flex flex-col items-center gap-2 group"
-        aria-label="Watch video"
-      >
-        <span
-          class="flex items-center justify-center w-20 h-20 rounded-full border-2 border-white bg-white/10 backdrop-blur-sm transition-all group-hover:bg-white/20 group-hover:scale-110"
-        >
-          <svg
-            class="w-8 h-8 text-white ml-1"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </span>
-        <span class="text-sm font-medium tracking-wider text-white/90"> WATCH VIDEO </span>
-      </a>
-
-      <!-- 捲動指示 -->
-      <a
-        ref="scrollHintRef"
-        href="#about"
-        class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/70 hover:text-white transition-colors"
-        aria-label="Scroll down"
-      >
-        <span class="text-xs tracking-widest uppercase">Scroll</span>
-        <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
-      </a>
+      <!-- 底部沙拉 Icon + 垂直延伸線 -->
+      <div class="absolute inset-x-0 bottom-0 flex justify-center" aria-hidden="true">
+        <div class="flex flex-col items-center gap-4">
+          <div class="flex flex-col items-center gap-1">
+            <div class="flex items-center justify-center w-[80px] h-[80px]">
+              <img src="/Salad.svg" alt="Salad" class="w-[65px] h-[65px]" />
+            </div>
+            <span class="text-sm font-bold tracking-[0.3em] uppercase text-white">
+              Taste us now!
+            </span>
+          </div>
+          <div class="mt-3 h-[44px] w-0.5 bg-linear-to-b bg-white" />
+        </div>
+      </div>
     </div>
-
-    <!-- 底部圓角 -->
-    <div class="absolute bottom-0 left-0 right-0 h-12 bg-white rounded-t-4xl" aria-hidden="true" />
   </section>
 </template>
