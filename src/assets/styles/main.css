@@ -2,8 +2,9 @@
 
 @theme {
   /* 品牌色 */
-  --color-brand-teal: #00c2b8;
-  --color-brand-dark: #1a1a2e;
+  --color-text-body: rgba(38, 38, 38, 1);
+  --color-brand-teal: rgba(38, 198, 208, 1);
+  --color-brand-dark: rgba(88, 88, 128, 1);
   --color-brand-white: rgba(242, 242, 242, 1);
   --background-image-gradient-brand-teal: linear-gradient(
     to right,
@@ -12,6 +13,7 @@
   );
   --color-enhance-teal: rgba(38, 198, 208, 1);
   --color-enhance-red: rgba(238, 108, 138, 1);
+  --color-enhance-yellow: rgba(255, 188, 88, 1);
 
   /* 字型 */
   --font-sans: 'proxima-nova', ui-sans-serif, system-ui, sans-serif;
@@ -59,14 +61,62 @@ body {
   background-color: var(--color-enhance-red);
 }
 
+/* 黃色高亮文字（僅底線，無紅點） */
+.enhance-text-yellow {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: normal;
+  z-index: 0;
+}
+
+.enhance-text-yellow::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  bottom: 0px;
+  width: calc(100% + 12px);
+  height: 10px;
+  background-color: var(--color-enhance-yellow);
+  z-index: -1;
+}
+
+/* 標題波浪裝飾：紅點（波浪由 WaveLineSvg 元件負責） */
+.enhance-wave-teal {
+  position: relative;
+  display: inline-block;
+}
+
+.enhance-wave-teal::after {
+  content: '';
+  position: absolute;
+  right: -0.8em;
+  bottom: 0.3em;
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 999px;
+  background-color: var(--color-enhance-red);
+}
+
 @media (max-width: 768px) {
   .enhance-text-teal::before {
     left: -4px;
     bottom: 14px;
     height: 4px;
   }
+  .enhance-text-yellow::before {
+    left: -4px;
+    width: calc(100% + 8px);
+  }
   .enhance-text-teal::after {
     right: -0.2em;
     bottom: 0.6em;
+  }
+  .enhance-wave-teal::after {
+    right: -0.6em;
+    bottom: 0.3em;
   }
 }

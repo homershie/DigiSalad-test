@@ -120,13 +120,13 @@ onUnmounted(() => ctx?.revert())
         <div class="flex flex-col items-center gap-4">
           <div class="flex flex-col items-center gap-1">
             <div class="flex items-center justify-center w-[80px] h-[80px]">
-              <img src="/Salad.svg" alt="Salad" class="w-[65px] h-[65px]" />
+              <img src="/hero/Salad.svg" alt="Salad" class="w-[65px] h-[65px]" />
             </div>
             <span class="text-sm font-bold tracking-[0.3em] uppercase text-white">
               Taste us now!
             </span>
           </div>
-          <div class="mt-3 h-[44px] w-0.5 bg-linear-to-b bg-white" />
+          <div class="mt-3 h-[44px] w-0.5 bg-white" />
         </div>
       </div>
     </div>
