@@ -1,7 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useGsapReveal } from '@/composables/useGsapReveal'
+
+const sectionRef = ref<Element | null>(null)
+
+useGsapReveal(sectionRef, {
+  from: { x: -500, scale: 0.5, opacity: 0, ease: 'power1.inOut' },
+  scrollTrigger: { start: 'top 90%' },
+})
+</script>
 
 <template>
-  <section id="insights" class="testimonial-section relative z-20 -mt-72">
+  <section ref="sectionRef" id="insights" class="testimonial-section relative z-20 -mt-72">
     <div
       class="relative flex items-center justify-center px-8 py-16 w-full md:w-[95%] xl:w-[88%] 2xl:w-[83.33%]"
     >

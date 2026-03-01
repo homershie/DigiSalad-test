@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import WaveLineSvg from '@/components/WaveLineSvg.vue'
+import { useGsapReveal } from '@/composables/useGsapReveal'
+
+const headerRef = ref<Element | null>(null)
+const mediaRef = ref<Element | null>(null)
+const contentRef = ref<Element | null>(null)
+const playButtonRef = ref<Element | null>(null)
+
+useGsapReveal(headerRef, { from: { y: 30 } })
+useGsapReveal(mediaRef, { stagger: 0.1, from: { y: 40 } })
+useGsapReveal(contentRef, { stagger: 0.1, from: { y: 40 } })
+useGsapReveal(playButtonRef, { from: { x: 200 } })
 
 const showVideo = ref(false)
 const YOUTUBE_VIDEO_ID = 'IeIRJ9jZ5Ro'
@@ -11,7 +22,7 @@ const YOUTUBE_VIDEO_ID = 'IeIRJ9jZ5Ro'
     <div class="mx-auto h-21.5 w-0.5 bg-[#808080]" />
     <div class="mx-auto mt-10 flex max-w-6xl flex-col gap-12 px-4 md:px-8 items-center">
       <!-- 左側：插圖 + 影片播放按鈕 / 內嵌 YouTube 影片 -->
-      <header class="space-y-3">
+      <header ref="headerRef" class="space-y-3">
         <h2
           class="enhance-wave-teal relative inline-block text-3xl font-bold leading-snug text-text-body"
         >
@@ -26,6 +37,7 @@ const YOUTUBE_VIDEO_ID = 'IeIRJ9jZ5Ro'
       </header>
 
       <div
+        ref="mediaRef"
         class="about-section__media relative mx-auto w-full max-w-240 overflow-hidden bg-slate-200"
       >
         <!-- 16:9 比例盒 -->
@@ -79,7 +91,10 @@ const YOUTUBE_VIDEO_ID = 'IeIRJ9jZ5Ro'
       </div>
 
       <!-- 右側：標題 + 文字 -->
-      <div class="about-section__content w-full max-w-251.75 space-y-6 lg:space-y-8">
+      <div
+        ref="contentRef"
+        class="about-section__content w-full max-w-251.75 space-y-6 lg:space-y-8"
+      >
         <p
           class="about-section__description text-center text-base font-normal leading-7 tracking-[0.0625rem] text-text-body"
         >
@@ -93,7 +108,7 @@ const YOUTUBE_VIDEO_ID = 'IeIRJ9jZ5Ro'
         </p>
       </div>
       <!-- CTA -->
-      <div class="group">
+      <div ref="playButtonRef" class="group">
         <a
           href="#"
           class="inline-flex items-center rounded-xs bg-brand-teal px-6 py-8 font-bold tracking-[0.13888rem] text-white transition group-hover:opacity-90"

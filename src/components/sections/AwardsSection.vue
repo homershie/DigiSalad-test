@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import WaveLineSvg from '@/components/WaveLineSvg.vue'
+import { useGsapReveal } from '@/composables/useGsapReveal'
+
+const sectionRef = ref<Element | null>(null)
+
+useGsapReveal(sectionRef, { from: { x: 500, scale: 0.5, opacity: 0 } })
 </script>
 
 <template>
-  <section id="awards" class="awards-section relative z-10 -mt-8 lg:-mt-24">
+  <section ref="sectionRef" id="awards" class="awards-section relative z-10 -mt-8 lg:-mt-24">
     <div
       class="relative w-full px-16 md:ms-[5%] xl:ms-[12%] 2xl:ms-[20%] md:w-[95%] xl:w-[88%] 2xl:w-[80%]"
     >
