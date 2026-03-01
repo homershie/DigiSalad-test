@@ -109,7 +109,7 @@ onUnmounted(() => ctx?.revert())
           AMAZING
         </span>
         <span
-          class="enhance-text-teal block text-2xl/[50px] md:text-[38px]/[70px] font-bold tracking-[0.3em] text-white uppercase"
+          class="enhance-text-hero block text-2xl/[50px] md:text-[38px]/[70px] font-bold tracking-[0.3em] text-white uppercase"
         >
           DIGITAL EXPERIENCES
         </span>

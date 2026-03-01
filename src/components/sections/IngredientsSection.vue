@@ -16,7 +16,7 @@ const ingredientsItems = [
 <template>
   <section
     id="services"
-    class="ingredients-section relative bg-brand-teal pb-20 pt-80 top-[-12rem] md:pb-24 lg:pb-28"
+    class="ingredients-section bg-brand-teal z-0 pb-120 pt-100 lg:pt-80 -mt-72 lg:-mt-48"
   >
     <div class="relative mx-auto max-w-7xl px-4 text-center text-white md:px-8">
       <header class="space-y-12">
@@ -37,7 +37,7 @@ const ingredientsItems = [
           </span>
         </h2>
         <p
-          class="ingredients-section__description mx-auto max-w-6xl text-white text-base/relaxed tracking-widest font-normal"
+          class="ingredients-section__description mx-auto max-w-6xl text-white text-base/[28px] tracking-[1px] font-light"
         >
           Cras quis nulla commodo, aliquam lectus sed, blandit augue. Cras ullamcorper bibendum
           bibendum. Duis tincidunt urna non pretium porta. Nam condimentum vitae ligula vel ornare.
@@ -47,16 +47,17 @@ const ingredientsItems = [
           consectetur, eros et vulputate euismod, nunc leo tempor lacus, ac rhoncus neque eros nec
           lacus. Cras lobortis molestie faucibus.
         </p>
-        <div
-          class="inline-flex items-center gap-3 rounded-xs bg-brand-dark px-6 py-8 font-bold tracking-[0.13888rem] text-white"
-          style="
-            font-size: 1rem;
-            line-height: normal;
-            font-family: 'Proxima Nova', var(--font-sans);
-          "
-        >
-          <span>OUR SERVICES</span>
-          <span class="h-0.5 w-12 shrink-0 bg-white" aria-hidden="true" />
+        <div class="group">
+          <a
+            class="inline-flex items-center rounded-xs bg-brand-dark px-6 py-8 font-bold tracking-[0.13888rem] text-white transition group-hover:brightness-110"
+            href="#"
+          >
+            <span>OUR SERVICES</span>
+            <span
+              class="ml-3 h-0.5 w-12 shrink-0 bg-white group-hover:w-0 transition-all duration-300 group-hover:ml-0"
+              aria-hidden="true"
+            />
+          </a>
         </div>
       </header>
 
@@ -101,7 +102,7 @@ const ingredientsItems = [
 
       <!-- 底部 CTA 文案，可依需求保留 -->
 
-      <p class="enhance-text-yellow mt-12 md:mt-14">VIEW MORE DIGISALAD’S INGRADIENTS</p>
+      <p class="enhance-text-yellow mt-24">VIEW MORE DIGISALAD’S INGRADIENTS</p>
     </div>
   </section>
 </template>

@@ -4,18 +4,18 @@ import WaveLineSvg from '@/components/WaveLineSvg.vue'
 
 <template>
   <section id="awards" class="awards-section relative z-10 -mt-8 lg:-mt-24">
-    <div class="relative w-full px-4 md:px-8">
+    <div
+      class="relative w-full px-16 md:ms-[5%] xl:ms-[12%] 2xl:ms-[20%] md:w-[95%] xl:w-[88%] 2xl:w-[80%]"
+    >
       <!-- 右側背景卡片（在內容下面） -->
       <div
-        class="awards-card-bg pointer-events-none absolute inset-y-0 right-0 w-full xl:w-[calc(95%+36px)] 2xl:w-[calc(85%+72px)] rounded-[40px] rounded-tr-[0px] bg-white -z-10"
+        class="awards-card-bg pointer-events-none absolute inset-y-0 right-0 w-full rounded-[40px] rounded-tr-none bg-white -z-10"
         aria-hidden="true"
       ></div>
 
       <!-- 內容保持置中 / 左文右圖 -->
-      <div
-        class="awards-card max-w-[70rem] mx-auto flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 py-16"
-      >
-        <div class="lg:max-w-md">
+      <div class="awards-card max-w-280 flex flex-col lg:flex-row lg:items-start gap-4 py-17">
+        <div class="lg:max-w-sm">
           <header class="awards-card__header mb-16 md:mb-8 text-center md:text-left">
             <h2
               class="enhance-wave-teal relative inline-block text-3xl font-bold leading-snug text-text-body md:ms-5"
@@ -41,11 +41,11 @@ import WaveLineSvg from '@/components/WaveLineSvg.vue'
         </div>
 
         <div class="awards-card__grid mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 md:mt-10 md:gap-8">
-          <div v-for="index in 4" :key="index" class="flex items-center justify-center">
+          <div v-for="index in 4" :key="index" class="flex min-w-0 items-center justify-center">
             <img
               src="/awards/template-01.png"
               alt="Award template"
-              class="max-h-24 min-w-[283px] w-auto"
+              class="h-auto w-[283px] max-w-full object-contain"
             />
           </div>
         </div>

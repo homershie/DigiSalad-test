@@ -1,9 +1,38 @@
 <script setup lang="ts">
-// TODO: Our Brand Experience — 客戶 logo 格線
+import WaveLineSvg from '@/components/WaveLineSvg.vue'
 </script>
 
 <template>
-  <section id="careers" class="bg-white py-24">
-    <!-- TODO: "OUR BRAND EXPERIENCE" 標題 + logo 格線 -->
+  <section id="careers" class="py-16">
+    <div class="mx-auto mt-10 flex max-w-5xl flex-col gap-16 items-center">
+      <!-- 左側：插圖 + 影片播放按鈕 / 內嵌 YouTube 影片 -->
+      <header class="space-y-3">
+        <h2
+          class="enhance-wave-teal relative inline-block text-[28px] font-bold tracking-[3.636px] text-text-body"
+        >
+          OUR BRAND EXPERIENCE
+          <span
+            class="absolute left-0 top-[calc(90%)] h-6 w-[calc(100%+36px)] md:w-[calc(100%+72px)] -translate-x-4 md:-translate-x-6 -z-10"
+            aria-hidden="true"
+          >
+            <WaveLineSvg :amplitude="8" :wavelength="27" :frequency="1" />
+          </span>
+        </h2>
+      </header>
+      <div class="brands-section__content space-y-12">
+        <p
+          class="brands-section__description text-center text-base font-normal leading-7 tracking-[1px] text-text-body"
+        >
+          Cras quis nulla commodo, aliquam lectus sed, blandit augue. Cras ullamcorper bibendum
+          bibendum. Duis tincidunt urna non pretium porta. Nam condimentum vitae ligula vel ornare.
+          Phasellus at semper turpis. Nunc eu tellus tortor. Etiam at condimentum nisl, vitae
+          sagittis orci. Donec id dignissim nunc. Donec elit ante, eleifend a dolor et, venenatis
+          facilisis dolor. In feugiat orci odio, sed lacinia sem elementum quis. Aliquam
+          consectetur, eros et vulputate euismod, nunc leo tempor lacus, ac rhoncus neque eros nec
+          lacus. Cras lobortis molestie faucibus.
+        </p>
+        <img src="/brands/DigiSalad-Client-List-20210512.png" alt="Brands" class="w-full h-auto" />
+      </div>
+    </div>
   </section>
 </template>
