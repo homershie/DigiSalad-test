@@ -1,8 +1,9 @@
 import { onMounted, onUnmounted, type Ref } from 'vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+import ScrollSmoother from 'gsap/ScrollSmoother'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
 interface RevealOptions {
   from?: gsap.TweenVars

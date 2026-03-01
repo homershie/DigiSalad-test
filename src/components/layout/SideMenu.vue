@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ScrollSmoother from 'gsap/ScrollSmoother'
 import { useMenu } from '@/composables/useMenu'
 
 const { isMenuOpen, closeMenu } = useMenu()
@@ -50,8 +51,13 @@ const navItems = [
 
 function scrollToAndClose(id: string) {
   closeMenu()
-  const el = document.getElementById(id)
-  el?.scrollIntoView({ behavior: 'smooth' })
+  const smoother = ScrollSmoother.get()
+  if (smoother) {
+    smoother.scrollTo(`#${id}`, true, 'top center')
+  } else {
+    const el = document.getElementById(id)
+    el?.scrollIntoView({ behavior: 'smooth' })
+  }
 }
 </script>
 
@@ -59,42 +65,55 @@ function scrollToAndClose(id: string) {
   <Transition name="side-menu">
     <div
       v-if="isMenuOpen"
-      class="fixed inset-0 z-100 bg-brand-dark/95 backdrop-blur-sm"
+      class="fixed inset-0 z-100 from-brand-dark/90 to-brand-teal/90 bg-linear-to-b backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Site navigation"
     >
-      <div class="h-full flex flex-col p-6 md:p-10">
+      <div class="h-full flex flex-col px-10 py-15 md:p-10">
         <!-- Header: Logo + Close -->
         <div class="flex items-center justify-between">
-          <a
-            href="/"
-            class="block"
-            @click="closeMenu"
-          >
-            <img
-              src="/Logo.svg"
-              alt="DigiSalad"
-              class="h-10 w-auto"
-            >
+          <a href="/" class="block" @click="closeMenu">
+            <img src="/Logo.svg" alt="DigiSalad" class="w-35 h-auto" />
           </a>
           <button
             type="button"
-            class="p-2 -m-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+            class="w-15 h-15 flex items-center justify-center cursor-pointer rounded-full text-white hover:bg-white/10 transition-colors duration-300"
             aria-label="Close menu"
             @click="closeMenu"
           >
             <svg
-              class="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              stroke-width="2"
+              version="1.1"
+              id="&#x5716;&#x5C64;_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="25"
+              height="25"
+              x="0px"
+              y="0px"
+              viewBox="0 0 25 25"
+              style="enable-background: new 0 0 25 25"
+              xml:space="preserve"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
+                style="
+                  fill: none;
+                  stroke: #ffffff;
+                  stroke-width: 3;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                "
+                d="M23.5,1.5l-22,22"
+              />
+              <path
+                style="
+                  fill: none;
+                  stroke: #ffffff;
+                  stroke-width: 3;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                "
+                d="M23.5,23.5l-22-22"
               />
             </svg>
           </button>
@@ -102,18 +121,13 @@ function scrollToAndClose(id: string) {
 
         <!-- Navigation Cards Grid -->
         <nav class="flex-1 flex items-center justify-center py-8">
-          <div
-            class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl w-full"
-          >
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl w-full">
             <button
               v-for="item in navItems"
               :key="item.id"
               type="button"
               class="group text-left p-6 rounded-2xl transition-transform hover:scale-[1.02] active:scale-[0.98]"
-              :class="[
-                item.color,
-                item.id === 'contact' ? 'text-brand-teal' : 'text-brand-dark',
-              ]"
+              :class="[item.color, item.id === 'contact' ? 'text-brand-teal' : 'text-brand-dark']"
               @click="scrollToAndClose(item.id)"
             >
               <p class="text-xs font-semibold tracking-wider opacity-80 mb-1">
@@ -123,10 +137,7 @@ function scrollToAndClose(id: string) {
                 <h3 class="text-xl md:text-2xl font-bold">
                   {{ item.title }}
                 </h3>
-                <span
-                  class="w-2 h-2 rounded-full shrink-0"
-                  :class="item.dot"
-                />
+                <span class="w-2 h-2 rounded-full shrink-0" :class="item.dot" />
               </div>
             </button>
           </div>

@@ -1,5 +1,14 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import WaveLineSvg from '@/components/WaveLineSvg.vue'
+import { useGsapReveal } from '@/composables/useGsapReveal'
+
+const headerRef = ref<Element | null>(null)
+const gridRef = ref<Element | null>(null)
+
+useGsapReveal(headerRef, { from: { y: 30 } })
+useGsapReveal(gridRef, { stagger: 0.1, from: { y: 40 } })
+
 const ingredientsItems = [
   { title: 'ux design', href: '#' },
   { title: 'ui design', href: '#' },
@@ -19,7 +28,7 @@ const ingredientsItems = [
     class="ingredients-section bg-brand-teal z-0 pb-120 pt-100 lg:pt-80 -mt-72 lg:-mt-48"
   >
     <div class="relative mx-auto max-w-7xl px-4 text-center text-white md:px-8">
-      <header class="space-y-12">
+      <header ref="headerRef" class="space-y-12">
         <h2
           class="enhance-wave-teal relative inline-block text-3xl font-bold leading-snug text-white md:ms-5"
         >
@@ -63,6 +72,7 @@ const ingredientsItems = [
 
       <!-- 服務九宮格 -->
       <div
+        ref="gridRef"
         class="ingredients-section__grid mx-auto mt-10 grid gap-8 md:mt-20 md:grid-cols-2 md:gap-10 lg:grid-cols-3"
       >
         <article
