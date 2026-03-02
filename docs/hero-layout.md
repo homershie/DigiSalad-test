@@ -16,6 +16,12 @@
     - base：字群向上微移（`-translate-y-32`），模擬設計稿中標題略高於垂直中心的位置。
     - `md` 以上：改為靠左對齊，搭配外層 padding 達成 Desktop 構圖。
 
+- **Hero 區進場動畫**
+  - 掛在 `h1` 的 `heroTitleRef` 控制標題子元素（Logo + 三行文字）的進場動效：
+    - `gsap.from(heroTitleRef.value.children, { opacity: 0, y: 60, stagger: 0.12, delay: 0.4 })`
+  - 播放按鈕（若有）：`scale: 0.6` 縮放進場，delay 1s。
+  - Scroll hint 元素：`y: 20` 淡入，delay 1.4s。
+
 - **左側垂直「DIGITAL AGENCY」與直線**
   - 僅在 `md` 以上顯示，以避免在窄螢幕上擠壓正文：
     - 容器類別：`hidden md:flex flex-col items-center gap-8 absolute left-[4%] top-[400px] -translate-y-1/2 text-white`。
@@ -23,21 +29,34 @@
       - 使用 `[writing-mode:vertical-rl] + rotate-180` 做直排效果。
       - 類別：`text-base font-bold tracking-[0.3em] uppercase`，對應設計稿的粗體字距。
     - 直線：
-      - 類別：`h-[113px] w-0.5 bg-white`，長度依照設計稿實際量測微調。
+      - 類別：`h-[113px] w-0.5 bg-white origin-top`，長度依照設計稿實際量測微調。
+  - **GSAP 循環動畫**（`verticalLabelRef` + `verticalLabelLineRef`）：
+    - 以 `gsap.timeline({ repeat: -1 })` 做無限循環：
+      1. **0 ~ 0.5s**：文字向上飛出（`y: -350`，`power2.in`）；同時直線以 `transformOrigin: top` 向下延伸縮放（模擬速度線效果）。
+      2. **0.5 ~ 1.25s**：文字從下方（`y: 350`）回到原位（`power2.out`）；直線縮回正常高度。
+      3. **1.25 ~ 3s**：停留在預設位置後重新 loop。
 
 - **底部沙拉 Icon +「TASTE US NOW!」+ 垂直線**
-  - 位置：固定在 Hero 區塊底部中央，作為視覺焦點與下一區的銜接。
+  - 位置：固定在 Hero 區塊底部中央（`absolute inset-x-0 bottom-0 flex justify-center`）。
   - 實作重點：
     - Icon 區塊：
-      - 使用 `/Salad.svg`，置於 `w-[80px] h-[80px]` 的容器中，並以 `w-[65px] h-[65px]` 呈現圖示。
+      - 使用獨立元件 `SaladIcon.vue`，動態載入 `/hero/Salad.svg` 並以 `v-html` 注入 SVG，尺寸為 `65px × 65px`。
+      - **Hover 互動動畫**（`onMouseEnter` / `onMouseLeave`）：
+        - 整體放大 `scale: 1.2`。
+        - `#right-knife` 順時針旋轉 30 度、`#left-fork` 逆時針旋轉 30 度。
+        - `#vegetable` 子路徑各自隨機旋轉 ±15 度（stagger 0.015s）。
+        - 離開時以相同時長回歸原狀。
+      - 按鈕可點擊，透過 `ScrollSmoother.scrollTo('#about')` 平滑捲動到下一區塊。
       - 下方文字類別：`text-sm font-bold tracking-[0.3em] uppercase text-white`，對應設計稿字級與字距。
     - 垂直線：
-      - 類別：`mt-3 h-[44px] w-0.5 bg-linear-to-b bg-white`。
+      - 類別：`mt-3 h-[44px] w-0.5 bg-white`。
       - 作為第一個 section 與下一個 section 的視覺導線；未來若有更精準的設計規格，可依實際畫面再調整高度。
 
 - **GSAP 動畫與結構關係**
-  - `heroTitleRef` 仍掛在 `h1` 上，動畫僅作用在標題內部各子元素（Logo + 三行文字），與左側/底部裝飾區塊相互獨立。
-  - 左側「DIGITAL AGENCY」與底部沙拉 Icon 僅為靜態裝飾（目前未綁定動畫或互動），不影響原本的進場動效。
+  - `heroTitleRef` 掛在 `h1` 上，控制標題內各子元素的進場動效。
+  - `verticalLabelRef` / `verticalLabelLineRef` 控制左側裝飾的循環飛出動畫，與標題動效互相獨立。
+  - `SaladIcon.vue` 封裝 Hover 互動動畫，掛在底部 Icon 按鈕上，不影響其他動效。
+  - 所有 Hero 動畫皆在同一個 `gsap.context()` 中建立，`onUnmounted` 時呼叫 `ctx.revert()` 完整清除。
 
 - **RWD 設計取捨說明**
   - 優先確保：
