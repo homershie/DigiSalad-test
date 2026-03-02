@@ -4,59 +4,109 @@ import { useMenu } from '@/composables/useMenu'
 
 const { isMenuOpen, closeMenu } = useMenu()
 
-const navItems = [
+interface NavItem {
+  id: string
+  subtitle: string
+  title: string
+  width: string
+  height: string
+  bgColor: string
+  bgImage: string | null
+  dot: string
+  food: string | null
+  layout: 'row' | 'col' // row: 文字與食物橫向 | col: 文字與食物縱向
+}
+
+const navItems: NavItem[] = [
   {
     id: 'about',
     subtitle: 'EMPOWERING BRANDS',
     title: 'ABOUT US',
-    color: 'bg-teal-400',
-    dot: 'bg-red-400',
+    width: 'w-[380px]',
+    height: 'h-[210px]',
+    bgColor: 'bg-[rgb(38,198,208)]',
+    bgImage: '/menu/menu-bg-about.png',
+    dot: 'bg-[rgba(238,108,138,1)]',
+    food: '/menu/food-vege.png',
+    layout: 'row',
   },
   {
     id: 'careers',
     subtitle: 'BE COOL WITH US',
     title: 'CAREERS',
-    color: 'bg-amber-400',
-    dot: 'bg-orange-500',
+    width: 'w-[290px]',
+    height: 'h-[430px]',
+    bgColor: 'bg-[rgb(230,169,78)]',
+    bgImage: '/menu/menu-bg-careers.png',
+    dot: 'bg-[rgba(238,108,138,1)]',
+    food: '/menu/food-cheese.png',
+    layout: 'col',
   },
   {
     id: 'services',
     subtitle: 'AREAS OF EXPERTISE',
     title: 'SERVICES',
-    color: 'bg-indigo-600',
-    dot: 'bg-pink-400',
+    width: 'w-[380px]',
+    height: 'h-[320px]',
+    bgColor: 'bg-[rgb(88,88,128)]',
+    bgImage: '/menu/menu-bg-services.png',
+    dot: 'bg-[rgba(238,108,138,1)]',
+    food: '/menu/food-carrot.png',
+    layout: 'col',
   },
   {
-    id: 'works',
+    id: 'showcase',
     subtitle: 'CASE STUDIES',
     title: 'WORKS',
-    color: 'bg-rose-400',
-    dot: 'bg-sky-400',
+    width: 'w-[380px]',
+    height: 'h-[320px]',
+    bgColor: 'bg-[rgba(238,108,138,0.8)]',
+    bgImage: '/menu/menu-bg-works.png',
+    dot: 'bg-brand-teal',
+    food: '/menu/food-tomato.png',
+    layout: 'row',
   },
   {
     id: 'insights',
     subtitle: 'OUR STRATEGIES',
     title: 'INSIGHTS',
-    color: 'bg-emerald-300',
-    dot: 'bg-red-400',
+    width: 'w-[290px]',
+    height: 'h-[282px]',
+    bgColor: 'bg-[rgb(38,208,168)]',
+    bgImage: '/menu/menu-bg-insights.png',
+    dot: 'bg-[rgba(238,108,138,1)]',
+    food: '/menu/food-cucumber.png',
+    layout: 'col',
   },
   {
     id: 'contact',
     subtitle: 'START YOUR JOURNEY WITH US',
     title: 'CONTACT',
-    color: 'bg-white',
-    dot: 'bg-red-400',
+    width: 'w-[380px]',
+    height: 'h-[210px]',
+    bgColor: 'bg-white',
+    bgImage: null,
+    dot: 'bg-[rgba(238,108,138,1)]',
+    food: null,
+    layout: 'col',
   },
+]
+
+// Bento layout: col1(about,works) | col2(careers,insights) | col3(services,contact)
+const bentoColumns: NavItem[][] = [
+  [navItems[0]!, navItems[3]!], // ABOUT, WORKS
+  [navItems[1]!, navItems[4]!], // CAREERS, INSIGHTS
+  [navItems[2]!, navItems[5]!], // SERVICES, CONTACT
 ]
 
 function scrollToAndClose(id: string) {
   closeMenu()
   const smoother = ScrollSmoother.get()
   if (smoother) {
-    smoother.scrollTo(`#${id}`, true, 'top center')
+    smoother.scrollTo(`#${id}`, true, 'top top')
   } else {
     const el = document.getElementById(id)
-    el?.scrollIntoView({ behavior: 'smooth' })
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 }
 </script>
@@ -70,9 +120,9 @@ function scrollToAndClose(id: string) {
       aria-modal="true"
       aria-label="Site navigation"
     >
-      <div class="h-full flex flex-col px-10 py-15 md:p-10">
+      <div class="h-full min-h-0 flex flex-col xl:px-10 xl:py-15 p-0 mt-8 overflow-hidden">
         <!-- Header: Logo + Close -->
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between px-8">
           <a href="/" class="block" @click="closeMenu">
             <img src="/Logo.svg" alt="DigiSalad" class="w-35 h-auto" />
           </a>
@@ -119,27 +169,190 @@ function scrollToAndClose(id: string) {
           </button>
         </div>
 
-        <!-- Navigation Cards Grid -->
-        <nav class="flex-1 flex items-center justify-center py-8">
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl w-full">
-            <button
-              v-for="item in navItems"
-              :key="item.id"
-              type="button"
-              class="group text-left p-6 rounded-2xl transition-transform hover:scale-[1.02] active:scale-[0.98]"
-              :class="[item.color, item.id === 'contact' ? 'text-brand-teal' : 'text-brand-dark']"
-              @click="scrollToAndClose(item.id)"
+        <!-- Navigation Cards Bento Grid；手機版可捲動、內容從頂對齊，防止捲動傳遞到背景頁 -->
+        <nav
+          class="nav-scroll-area flex-1 min-h-0 flex items-start justify-center p-8 overflow-y-auto overflow-x-hidden overscroll-contain xl:items-center xl:overflow-hidden"
+          @wheel.stop
+        >
+          <!-- Desktop (xl+): Bento layout with design sizes -->
+          <div class="nav-bento hidden xl:flex gap-6 max-w-[1100px] w-full justify-center">
+            <div
+              v-for="(column, colIdx) in bentoColumns"
+              :key="colIdx"
+              class="flex flex-col gap-6"
+              :class="colIdx === 0 ? 'w-[380px]' : colIdx === 1 ? 'w-[290px]' : 'w-[380px]'"
             >
-              <p class="text-xs font-semibold tracking-wider opacity-80 mb-1">
-                {{ item.subtitle }}
-              </p>
-              <div class="flex items-center gap-2">
-                <h3 class="text-xl md:text-2xl font-bold">
-                  {{ item.title }}
-                </h3>
-                <span class="w-2 h-2 rounded-full shrink-0" :class="item.dot" />
-              </div>
-            </button>
+              <button
+                v-for="item in column"
+                :key="item.id"
+                type="button"
+                class="nav-card group relative flex text-left px-10.5 py-12.5 rounded-4xl transition-transform hover:scale-[1.02] active:scale-[0.98] overflow-hidden shrink-0"
+                :class="[
+                  item.width,
+                  item.height,
+                  item.layout === 'row' && item.id === 'about'
+                    ? 'flex-row items-center justify-between'
+                    : item.layout === 'row' && item.id === 'showcase'
+                      ? 'flex-col justify-end'
+                      : item.id === 'contact'
+                        ? 'flex-col justify-center'
+                        : 'flex-col justify-end',
+                  item.bgColor,
+                  item.id === 'contact' ? 'text-brand-teal' : 'text-white',
+                  item.id === 'about' || item.id === 'services' ? 'xl:mt-15' : '',
+                ]"
+                :style="
+                  item.bgImage
+                    ? {
+                        backgroundImage: `url(${item.bgImage})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }
+                    : undefined
+                "
+                @click="scrollToAndClose(item.id)"
+              >
+                <!-- WORKS: 外層 flex-col justify-end，內層 flex-row items-center 讓圖片+文字置中後一起靠底 -->
+                <div
+                  v-if="item.layout === 'row' && item.id === 'showcase'"
+                  class="flex flex-row items-center justify-between w-full"
+                >
+                  <img
+                    v-if="item.food"
+                    :src="item.food"
+                    :alt="item.title"
+                    class="relative z-1 w-auto h-auto max-w-[92px] max-h-[92px] object-contain pointer-events-none shrink-0 mr-3"
+                  />
+                  <div class="relative z-1 flex flex-col justify-center min-w-0 flex-1">
+                    <p class="text-base tracking-[1.8px] opacity-90">
+                      {{ item.subtitle }}
+                    </p>
+                    <div class="flex items-center gap-2">
+                      <h3 class="text-xl md:text-[32px] font-bold tracking-[3.636px]">
+                        {{ item.title }}
+                      </h3>
+                      <span class="w-2.5 h-2.5 rounded-full shrink-0 mt-3" :class="item.dot" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 其他項目：維持原本結構 -->
+                <template v-else>
+                  <img
+                    v-if="item.food"
+                    :src="item.food"
+                    :alt="item.title"
+                    class="relative z-1 w-auto h-auto max-w-[92px] max-h-[92px] object-contain pointer-events-none shrink-0"
+                    :class="item.layout === 'row' ? 'mr-3' : 'mb-4 self-start'"
+                  />
+                  <div
+                    class="relative z-1 flex flex-col justify-center min-w-0"
+                    :class="item.layout === 'row' ? 'flex-1' : 'w-full'"
+                  >
+                    <p
+                      class="text-base tracking-[1.8px]"
+                      :class="item.id === 'contact' ? 'text-brand-dark opacity-80' : 'opacity-90'"
+                    >
+                      {{ item.subtitle }}
+                    </p>
+                    <div class="flex items-center gap-2">
+                      <h3 class="text-xl md:text-[32px] font-bold tracking-[3.636px]">
+                        {{ item.title }}
+                      </h3>
+                      <span class="w-2.5 h-2.5 rounded-full shrink-0 mt-3" :class="item.dot" />
+                    </div>
+                  </div>
+                </template>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tablet / Mobile (<xl): 手機統一 flex-row 置中，平板維持原樣 -->
+          <div class="nav-grid grid grid-cols-1 xl:hidden gap-4 md:gap-5 w-full max-w-2xl px-2">
+            <template v-for="item in navItems" :key="item.id">
+              <button
+                v-if="item"
+                type="button"
+                class="nav-card group relative cursor-pointer flex text-left p-4 md:py-5 px-10 rounded-4xl transition-transform hover:scale-[1.02] active:scale-[0.98] overflow-hidden min-h-[110px] md:min-h-[160px]"
+                :class="[
+                  'flex-row items-center',
+                  item.food ? 'justify-between' : 'justify-center',
+                  item.layout === 'row' && item.id === 'about'
+                    ? 'md:flex-row md:items-center md:justify-between'
+                    : item.layout === 'row' && item.id === 'showcase'
+                      ? 'md:flex-col md:justify-end'
+                      : item.id === 'contact'
+                        ? 'md:flex-col md:justify-center'
+                        : 'md:flex-col md:justify-end',
+                  item.bgColor,
+                  item.id === 'about' ? 'md:col-span-2 md:min-h-[180px]' : '',
+                  item.id === 'contact' ? 'text-brand-teal' : 'text-white',
+                  item.id === 'careers' ? 'md:col-span-2 md:min-h-[180px]' : '',
+                ]"
+                :style="
+                  item.bgImage
+                    ? {
+                        backgroundImage: `url(${item.bgImage})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }
+                    : undefined
+                "
+                @click="scrollToAndClose(item.id)"
+              >
+                <!-- 平板 WORKS: 需要 wrapper 讓圖片+文字置中後一起靠底；手機：文字左、圖片右、space-between -->
+                <div
+                  v-if="item.layout === 'row' && item.id === 'showcase'"
+                  class="flex flex-row items-center justify-between w-full"
+                >
+                  <img
+                    v-if="item.food"
+                    :src="item.food"
+                    :alt="item.title"
+                    class="relative z-1 w-14 h-14 md:w-auto md:h-auto md:max-w-[64px] md:max-h-[64px] object-contain opacity-90 pointer-events-none shrink-0 order-2 ml-2 md:order-0 md:ml-0 md:mr-3"
+                  />
+                  <div
+                    class="relative z-1 flex flex-col justify-center min-w-0 flex-1 order-1 md:order-0"
+                  >
+                    <p class="text-base tracking-[1.8px] opacity-90">
+                      {{ item.subtitle }}
+                    </p>
+                    <div class="flex items-center gap-2">
+                      <h3 class="text-xl md:text-[32px] font-bold tracking-[3.636px]">
+                        {{ item.title }}
+                      </h3>
+                      <span class="w-2 h-2 rounded-full shrink-0 mt-1 md:mt-3" :class="item.dot" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 其他項目；手機：文字左、圖片右、space-between -->
+                <template v-else>
+                  <img
+                    v-if="item.food"
+                    :src="item.food"
+                    :alt="item.title"
+                    class="relative z-1 w-14 h-14 md:w-auto md:h-auto md:max-w-[64px] md:max-h-[64px] object-contain opacity-90 pointer-events-none shrink-0 order-2 ml-2 md:order-0 md:ml-0"
+                    :class="item.layout === 'col' ? 'md:mr-0 md:mb-4 md:self-start' : 'md:mr-3'"
+                  />
+                  <div
+                    class="relative z-1 flex flex-col justify-center min-w-0 flex-1 order-1 md:order-0"
+                    :class="item.layout === 'row' ? 'md:flex-1' : 'md:w-full'"
+                  >
+                    <p
+                      class="text-base tracking-[1.8px]"
+                      :class="item.id === 'contact' ? 'text-brand-dark opacity-80' : 'opacity-90'"
+                    >
+                      {{ item.subtitle }}
+                    </p>
+                    <div class="flex items-center gap-2">
+                      <h3 class="text-xl md:text-[32px] font-bold tracking-[3.636px]">
+                        {{ item.title }}
+                      </h3>
+                      <span class="w-2 h-2 rounded-full shrink-0 mt-1 md:mt-3" :class="item.dot" />
+                    </div>
+                  </div>
+                </template>
+              </button>
+            </template>
           </div>
         </nav>
       </div>
@@ -148,20 +361,28 @@ function scrollToAndClose(id: string) {
 </template>
 
 <style scoped>
+.nav-scroll-area {
+  -webkit-overflow-scrolling: touch; /* iOS 慣性捲動 */
+}
+
 .side-menu-enter-active,
 .side-menu-leave-active {
   transition: opacity 0.3s ease;
 }
-.side-menu-enter-active .grid,
-.side-menu-leave-active .grid {
+.side-menu-enter-active .nav-bento,
+.side-menu-enter-active .nav-grid,
+.side-menu-leave-active .nav-bento,
+.side-menu-leave-active .nav-grid {
   transition: transform 0.3s ease;
 }
 .side-menu-enter-from,
 .side-menu-leave-to {
   opacity: 0;
 }
-.side-menu-enter-from .grid,
-.side-menu-leave-to .grid {
+.side-menu-enter-from .nav-bento,
+.side-menu-enter-from .nav-grid,
+.side-menu-leave-to .nav-bento,
+.side-menu-leave-to .nav-grid {
   transform: translateX(20px);
 }
 </style>

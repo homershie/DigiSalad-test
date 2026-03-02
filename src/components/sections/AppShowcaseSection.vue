@@ -71,7 +71,7 @@ function goNext() {
       <div ref="leftBtnRef" class="app-showcase__left-btn-container shrink-0">
         <button
           type="button"
-          class="app-showcase__left-btn flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-300"
+          class="app-showcase__left-btn flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-300"
           aria-label="上一頁"
           @click="goPrev"
         >
@@ -195,7 +195,7 @@ function goNext() {
       <div ref="rightBtnRef" class="app-showcase__right-btn-container shrink-0">
         <button
           type="button"
-          class="app-showcase__right-btn flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-300"
+          class="app-showcase__right-btn flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-300"
           aria-label="下一頁"
           @click="goNext"
         >

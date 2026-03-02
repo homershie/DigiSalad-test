@@ -52,7 +52,9 @@ useGsapReveal(sectionRef, {
 
         <div class="testimonial-card__content flex flex-col items-center gap-3 flex-2">
           <img src="/testimonial/left-quote 1.svg" alt="Quote" class="w-23 h-auto" />
-          <p class="testimonial-card__text text-white text-[22px]/[48px] font-light tracking-[2px]">
+          <p
+            class="testimonial-card__text text-white text-lg/loose md:text-[22px]/[48px] font-light tracking-[2px]"
+          >
             A great digital work isn’t about designing beautiful pages purely. It is about context -
             how do we deliver the
             <span class="text-enhance-yellow font-bold"

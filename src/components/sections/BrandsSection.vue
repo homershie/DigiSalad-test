@@ -13,7 +13,7 @@ useGsapReveal(imageRef, { stagger: 0.1, from: { y: 50 } })
 </script>
 
 <template>
-  <section id="careers" class="py-16">
+  <section id="careers" class="py-16 px-4">
     <div class="mx-auto mt-10 flex max-w-5xl flex-col gap-16 items-center">
       <!-- 左側：插圖 + 影片播放按鈕 / 內嵌 YouTube 影片 -->
       <header ref="titleRef" class="space-y-3">
