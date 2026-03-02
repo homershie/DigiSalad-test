@@ -24,9 +24,9 @@ html {
   scroll-behavior: smooth;
 }
 
-/* 連結樣式：繼承文字顏色、帶底線，避免部署後變成預設藍色 */
-a {
-  color: inherit;
+/* 內容連結：黑字＋底線，避免預設藍色。排除有 text-* / bg-* 的按鈕／導覽連結 */
+a:not([class*='text-']):not([class*='bg-']) {
+  color: var(--color-text-body);
   text-decoration: underline;
 }
 

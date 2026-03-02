@@ -122,7 +122,7 @@ function scrollToAndClose(id: string) {
       aria-modal="true"
       aria-label="Site navigation"
     >
-      <div class="h-full min-h-0 flex flex-col xl:px-10 xl:py-15 p-0 mt-8 overflow-hidden">
+      <div class="h-full min-h-0 flex flex-col xl:px-10 xl:py-15 p-0 mt-8 md:mt-0 overflow-hidden">
         <!-- Header: Logo + Close -->
         <div class="flex items-center justify-between px-8">
           <a href="/" class="block" @click="closeMenu">
