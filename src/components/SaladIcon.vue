@@ -7,7 +7,8 @@ const saladSvg = ref('')
 let tl: gsap.core.Timeline | null = null
 
 const loadSvg = async () => {
-  const res = await fetch('/hero/Salad.svg')
+  const baseUrl = import.meta.env.BASE_URL
+  const res = await fetch(`${baseUrl}hero/Salad.svg`)
   saladSvg.value = await res.text()
 }
 

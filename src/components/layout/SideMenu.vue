@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import ScrollSmoother from 'gsap/ScrollSmoother'
 import { useMenu } from '@/composables/useMenu'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
 
 const { isMenuOpen, closeMenu } = useMenu()
+const baseUrl = import.meta.env.BASE_URL
 
 interface NavItem {
   id: string
@@ -124,7 +126,7 @@ function scrollToAndClose(id: string) {
         <!-- Header: Logo + Close -->
         <div class="flex items-center justify-between px-8">
           <a href="/" class="block" @click="closeMenu">
-            <img src="/Logo.svg" alt="DigiSalad" class="w-35 h-auto" />
+            <img :src="baseUrl + 'Logo.svg'" alt="DigiSalad" class="w-35 h-auto" />
           </a>
           <button
             type="button"
@@ -204,7 +206,7 @@ function scrollToAndClose(id: string) {
                 :style="
                   item.bgImage
                     ? {
-                        backgroundImage: `url(${item.bgImage})`,
+                        backgroundImage: `url(${resolvePublicPath(item.bgImage)})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                       }
@@ -219,7 +221,7 @@ function scrollToAndClose(id: string) {
                 >
                   <img
                     v-if="item.food"
-                    :src="item.food"
+                    :src="resolvePublicPath(item.food)"
                     :alt="item.title"
                     class="relative z-1 w-auto h-auto max-w-[92px] max-h-[92px] object-contain pointer-events-none shrink-0 mr-3"
                   />
@@ -239,7 +241,7 @@ function scrollToAndClose(id: string) {
                 <template v-else>
                   <img
                     v-if="item.food"
-                    :src="item.food"
+                    :src="resolvePublicPath(item.food)"
                     :alt="item.title"
                     class="relative z-1 w-auto h-auto max-w-[92px] max-h-[92px] object-contain pointer-events-none shrink-0"
                     :class="item.layout === 'row' ? 'mr-3' : 'mb-4 self-start'"
@@ -291,7 +293,7 @@ function scrollToAndClose(id: string) {
                 :style="
                   item.bgImage
                     ? {
-                        backgroundImage: `url(${item.bgImage})`,
+                        backgroundImage: `url(${resolvePublicPath(item.bgImage)})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                       }
@@ -306,7 +308,7 @@ function scrollToAndClose(id: string) {
                 >
                   <img
                     v-if="item.food"
-                    :src="item.food"
+                    :src="resolvePublicPath(item.food)"
                     :alt="item.title"
                     class="relative z-1 w-14 h-14 md:w-auto md:h-auto md:max-w-[64px] md:max-h-[64px] object-contain opacity-90 pointer-events-none shrink-0 order-2 ml-2 md:order-0 md:ml-0 md:mr-3"
                   />
@@ -328,7 +330,7 @@ function scrollToAndClose(id: string) {
                 <template v-else>
                   <img
                     v-if="item.food"
-                    :src="item.food"
+                    :src="resolvePublicPath(item.food)"
                     :alt="item.title"
                     class="relative z-1 w-14 h-14 md:w-auto md:h-auto md:max-w-[64px] md:max-h-[64px] object-contain opacity-90 pointer-events-none shrink-0 order-2 ml-2 md:order-0 md:ml-0"
                     :class="item.layout === 'col' ? 'md:mr-0 md:mb-4 md:self-start' : 'md:mr-3'"

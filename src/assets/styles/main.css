@@ -24,6 +24,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 連結樣式：繼承文字顏色、帶底線，避免部署後變成預設藍色 */
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--color-brand-white);

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useMenu } from '@/composables/useMenu'
 import { useScrollNav } from '@/composables/useScrollNav'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
 
 const { toggleMenu, isMenuOpen } = useMenu()
 const { isScrolled } = useScrollNav()
+const logoUrl = resolvePublicPath('Logo-C.svg')
 </script>
 
 <template>
@@ -21,7 +23,7 @@ const { isScrolled } = useScrollNav()
         :class="isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'"
         aria-label="DigiSalad Home"
       >
-        <img src="/Logo-C.svg" alt="DigiSalad" class="w-[120px] h-auto" />
+        <img :src="logoUrl" alt="DigiSalad" class="w-[120px] h-auto" />
       </a>
 
       <div class="flex items-center gap-3 md:gap-6">

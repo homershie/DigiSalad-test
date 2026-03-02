@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useGsapReveal } from '@/composables/useGsapReveal'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
 
 const currentPage = ref(1)
 const totalPages = 4
@@ -57,7 +58,8 @@ function goNext() {
   >
     <!-- 背景圖片 -->
     <div
-      class="absolute inset-0 bg-[url('/app-showcase/bg.png')] bg-cover bg-bottom bg-no-repeat blur-md"
+      class="absolute inset-0 bg-cover bg-bottom bg-no-repeat blur-md"
+      :style="{ backgroundImage: `url(${resolvePublicPath('app-showcase/bg.png')})` }"
       aria-hidden="true"
     />
     <!-- 背景黑色遮罩 -->
@@ -76,7 +78,7 @@ function goNext() {
           @click="goPrev"
         >
           <img
-            src="/app-showcase/btn-left.svg"
+            :src="resolvePublicPath('app-showcase/btn-left.svg')"
             alt="previous"
             class="lg:w-[56px] lg:h-[56px] w-10 h-10 pointer-events-none"
           />
@@ -101,7 +103,7 @@ function goNext() {
             <div class="app-showcase__image flex-1 relative">
               <img
                 ref="imageRef"
-                src="/app-showcase/case-01.png"
+                :src="resolvePublicPath('app-showcase/case-01.png')"
                 alt="LP Club Mobile App"
                 class="w-full h-auto"
               />
@@ -200,7 +202,7 @@ function goNext() {
           @click="goNext"
         >
           <img
-            src="/app-showcase/btn-right.svg"
+            :src="resolvePublicPath('app-showcase/btn-right.svg')"
             alt="next"
             class="lg:w-[56px] lg:h-[56px] w-10 h-10 pointer-events-none"
           />

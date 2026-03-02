@@ -3,6 +3,9 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import ScrollSmoother from 'gsap/ScrollSmoother'
 import SaladIcon from '@/components/SaladIcon.vue'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
+
+const logoUrl = resolvePublicPath('Logo.svg')
 
 function scrollToAbout() {
   const smoother = ScrollSmoother.get()
@@ -158,7 +161,7 @@ onUnmounted(() => ctx?.revert())
 
       <h1 ref="heroTitleRef" class="text-white text-center relative -translate-y-32 md:text-left">
         <img
-          src="/Logo.svg"
+          :src="logoUrl"
           alt="DigiSalad"
           class="mx-auto md:mx-0 h-[88px] w-auto mb-[17px] md:mb-[34px]"
         />

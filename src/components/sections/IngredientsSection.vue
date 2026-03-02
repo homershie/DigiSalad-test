@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import WaveLineSvg from '@/components/WaveLineSvg.vue'
 import { useGsapReveal } from '@/composables/useGsapReveal'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
 
 const headerRef = ref<Element | null>(null)
 const gridRef = ref<Element | null>(null)
@@ -85,7 +86,7 @@ const ingredientsItems = [
             class="mb-5 flex h-27 w-27 items-center justify-center rounded-full bg-white text-brand-teal"
           >
             <img
-              :src="`/ingredients/Ingredients-0${index + 1}.png`"
+              :src="resolvePublicPath(`ingredients/Ingredients-0${index + 1}.png`)"
               :alt="item.title"
               class="h-16 w-16 object-contain"
             />

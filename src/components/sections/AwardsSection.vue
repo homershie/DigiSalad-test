@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import WaveLineSvg from '@/components/WaveLineSvg.vue'
 import { useGsapReveal } from '@/composables/useGsapReveal'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
 
 const sectionRef = ref<Element | null>(null)
 
@@ -49,7 +50,7 @@ useGsapReveal(sectionRef, { from: { x: 500, scale: 0.5, opacity: 0 } })
         <div class="awards-card__grid mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 md:mt-10 md:gap-8">
           <div v-for="index in 4" :key="index" class="flex min-w-0 items-center justify-center">
             <img
-              src="/awards/template-01.png"
+              :src="resolvePublicPath('awards/template-01.png')"
               alt="Award template"
               class="h-auto w-[283px] max-w-full object-contain"
             />

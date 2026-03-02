@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import WaveLineSvg from '@/components/WaveLineSvg.vue'
 import { useGsapReveal } from '@/composables/useGsapReveal'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
 
 const titleRef = ref<Element | null>(null)
 const contentRef = ref<Element | null>(null)
@@ -43,7 +44,7 @@ useGsapReveal(imageRef, { stagger: 0.1, from: { y: 50 } })
         </p>
         <img
           ref="imageRef"
-          src="/brands/DigiSalad-Client-List-20210512.png"
+          :src="resolvePublicPath('brands/DigiSalad-Client-List-20210512.png')"
           alt="Brands"
           class="w-full h-auto"
         />

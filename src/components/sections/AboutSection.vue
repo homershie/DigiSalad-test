@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import WaveLineSvg from '@/components/WaveLineSvg.vue'
 import { useGsapReveal } from '@/composables/useGsapReveal'
+import { resolvePublicPath } from '@/composables/useBaseUrl'
 
 const headerRef = ref<Element | null>(null)
 const mediaRef = ref<Element | null>(null)
@@ -45,7 +46,7 @@ const YOUTUBE_VIDEO_ID = 'IeIRJ9jZ5Ro'
           <!-- 預設顯示：縮圖 + 播放按鈕 -->
           <template v-if="!showVideo">
             <img
-              src="/about/snapshot.png"
+              :src="resolvePublicPath('about/snapshot.png')"
               alt="About DigiSalad video cover"
               class="absolute inset-0 h-full w-full object-cover"
             />
@@ -61,7 +62,7 @@ const YOUTUBE_VIDEO_ID = 'IeIRJ9jZ5Ro'
                 @click="showVideo = true"
               >
                 <img
-                  src="/about/media-play-symbol.svg"
+                  :src="resolvePublicPath('about/media-play-symbol.svg')"
                   alt=""
                   class="h-full w-full"
                   aria-hidden="true"
