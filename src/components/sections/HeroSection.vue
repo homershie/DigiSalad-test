@@ -16,6 +16,8 @@ function scrollToAbout() {
 const heroTitleRef = ref<HTMLElement | null>(null)
 const playButtonRef = ref<HTMLElement | null>(null)
 const scrollHintRef = ref<HTMLElement | null>(null)
+const verticalLabelRef = ref<HTMLElement | null>(null)
+const verticalLabelLineRef = ref<HTMLElement | null>(null)
 
 /** 替換為實際的 YouTube 影片 ID，例如城市夜景 timelapse */
 const youtubeVideoId = '8_4JRK4QkqU'
@@ -52,6 +54,56 @@ onMounted(() => {
         ease: 'power2.out',
         delay: 1.4,
       })
+    }
+
+    // 左側垂直標籤動畫：文字 + 速度線
+    if (verticalLabelRef.value && verticalLabelLineRef.value) {
+      const LINE_HEIGHT = 113
+      const LINE_COME_BACK_HEIGHT = 240
+
+      const tl = gsap.timeline({ repeat: -1 })
+      // 0~0.5s：向上飛出畫面
+      tl.to(verticalLabelRef.value, {
+        y: -350,
+        duration: 0.5,
+        ease: 'power2.in',
+      })
+        .to(
+          verticalLabelLineRef.value,
+          {
+            scaleY: LINE_COME_BACK_HEIGHT / LINE_HEIGHT,
+            transformOrigin: 'top',
+            duration: 0.5,
+            ease: 'power2.in',
+          },
+          '<',
+        )
+        // 0.5~1.25s：從下方回到預設位置（immediateRender: false 避免 from 值在建立時被套用）
+        .fromTo(
+          verticalLabelRef.value,
+          { y: 350 },
+          {
+            y: 0,
+            duration: 0.75,
+            ease: 'power2.out',
+            immediateRender: false,
+          },
+          0.5,
+        )
+        .fromTo(
+          verticalLabelLineRef.value,
+          { scaleY: LINE_COME_BACK_HEIGHT / LINE_HEIGHT },
+          {
+            scaleY: 1,
+            transformOrigin: 'top',
+            duration: 0.75,
+            ease: 'power2.out',
+            immediateRender: false,
+          },
+          0.5,
+        )
+        // 1.25~3s：停在預設位置後重新 loop
+        .to({}, { duration: 1.75 }, 1.25)
     }
   })
 })
@@ -92,6 +144,7 @@ onUnmounted(() => ctx?.revert())
     >
       <!-- 左側垂直標籤：DIGITAL AGENCY -->
       <div
+        ref="verticalLabelRef"
         class="hidden md:flex flex-col items-center gap-8 absolute left-[4%] top-[400px] -translate-y-1/2 text-white"
         aria-hidden="true"
       >
@@ -100,7 +153,7 @@ onUnmounted(() => ctx?.revert())
         >
           Digital Agency
         </span>
-        <div class="h-[113px] w-0.5 bg-white" />
+        <div ref="verticalLabelLineRef" class="h-[113px] w-0.5 bg-white origin-top" />
       </div>
 
       <h1 ref="heroTitleRef" class="text-white text-center relative -translate-y-32 md:text-left">
