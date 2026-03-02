@@ -6,6 +6,7 @@ import { resolvePublicPath } from '@/composables/useBaseUrl'
 const { toggleMenu, isMenuOpen } = useMenu()
 const { isScrolled } = useScrollNav()
 const logoUrl = resolvePublicPath('Logo-C.svg')
+const baseUrl = import.meta.env.BASE_URL
 </script>
 
 <template>
@@ -18,7 +19,7 @@ const logoUrl = resolvePublicPath('Logo-C.svg')
   >
     <nav class="flex items-center justify-between px-6 min-h-[100px] md:px-[60px] py-4">
       <a
-        href="/"
+        :href="baseUrl"
         class="block transition-all duration-300 hover:brightness-110 mt-[9px] md:ms-5"
         :class="isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'"
         aria-label="DigiSalad Home"

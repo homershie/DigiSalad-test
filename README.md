@@ -29,7 +29,8 @@ src/
 │   ├── WaveLineSvg.vue         # 可複用波浪線 SVG 元件（GSAP polyline 動畫）
 │   ├── layout/
 │   │   ├── AppNavbar.vue       # 固定導覽列（透明 → 白底捲動切換，選單開啟時隱藏）
-│   │   └── SideMenu.vue        # 全頁覆蓋側邊選單（桌面 Bento Grid / 手機響應式 Grid）
+│   │   ├── SideMenu.vue        # 全頁覆蓋側邊選單（桌面 Bento Flex / 平板 2 欄 Grid / 手機單欄）
+│   │   └── NavCard.vue         # 導覽卡片子元件，封裝卡片外殼、背景圖片與 Hover 動畫
 │   └── sections/
 │       ├── HeroSection.vue     # 影片背景 + 主標題 + GSAP 進場與循環動畫
 │       ├── AboutSection.vue    # 關於 DigiSalad + 插圖
@@ -56,7 +57,7 @@ src/
 ### 版面與響應式
 
 - **Navbar** — Hero 區為透明背景，捲動後切換為白底加陰影；側邊選單開啟時整個 Navbar 隱藏。
-- **SideMenu** — 桌面（`xl+`）：三欄 Bento Grid，卡片尺寸依設計稿；平板 / 手機（`<xl`）：響應式單欄 Grid。點擊導覽卡片會透過 ScrollSmoother 捲動至對應 Section 並關閉選單。
+- **SideMenu** — 桌面（`xl+`）：三欄 Bento Flex，卡片尺寸依設計稿；平板（`md` ~ `xl`）：兩欄 Grid，ABOUT / CAREERS 佔滿全寬，其餘各佔 50%，卡片內容 layout 與桌面一致；手機（`<md`）：單欄，各卡片統一文字靠左、圖片靠右。點擊導覽卡片會透過 ScrollSmoother 捲動至對應 Section 並關閉選單。各卡片的樣式與內容直接寫在 template 中，由 `NavCard` 子元件封裝共用的外殼邏輯。
 - **AppShowcaseSection 作品集** — 四頁輪播，以 `Transition`（`out-in` 模式）實作方向性滑動切換；頁碼指示器以青色斜線分隔當前頁 / 總頁數。
 
 ### 資源路徑解析
