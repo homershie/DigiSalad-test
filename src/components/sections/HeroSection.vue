@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
+import ScrollSmoother from 'gsap/ScrollSmoother'
+import SaladIcon from '@/components/SaladIcon.vue'
+
+function scrollToAbout() {
+  const smoother = ScrollSmoother.get()
+  if (smoother) {
+    smoother.scrollTo('#about', true, 'top top')
+  } else {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
 
 const heroTitleRef = ref<HTMLElement | null>(null)
 const playButtonRef = ref<HTMLElement | null>(null)
@@ -119,9 +130,14 @@ onUnmounted(() => ctx?.revert())
       <div class="absolute inset-x-0 bottom-0 flex justify-center" aria-hidden="true">
         <div class="flex flex-col items-center gap-4">
           <div class="flex flex-col items-center gap-1">
-            <div class="flex items-center justify-center w-[80px] h-[80px]">
-              <img src="/hero/Salad.svg" alt="Salad" class="w-[65px] h-[65px]" />
-            </div>
+            <button
+              type="button"
+              class="flex items-center justify-center w-[80px] h-[80px]"
+              aria-label="Scroll to About"
+              @click="scrollToAbout"
+            >
+              <SaladIcon />
+            </button>
             <span class="text-sm font-bold tracking-[0.3em] uppercase text-white">
               Taste us now!
             </span>
